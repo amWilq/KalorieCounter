@@ -1,0 +1,117 @@
+
+{% extends 'base/main.html' %}
+{% block content %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="">
+<div class="header-bar">
+    <div>
+        <h1>Hello {{request.user|title}}</h1>
+    </div>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Wyloguj się</a>
+    {% else %}
+        <a href="{% url 'logowanie' %}">Zaloguj się</a>
+    {% endif %}
+</div>
+    <!--<a id="add-link" href="{% url 'dodaj' %}">&#x2b;</a>
+    {% for produkty in object_list %}
+    <h2><a href="{% url 'dodaj_view' produkty.id %}">{{ produkty.date_eaten|date:"l" }}</a></h2>
+    https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#date
+    {% endfor %}
+    -->
+
+
+<style>
+    .center {
+  margin-left: auto;
+  margin-right: auto;
+}
+th, td {
+  padding: 15px;
+
+}
+
+.my-button {
+
+        color: #EB796F;
+        text-decoration: none;
+        font-size: 42px;
+        width: 50px;
+        height: 50px;
+        border: none;
+        border-radius: 100px;
+        outline: none;
+        background: #009933;
+        color: black;
+        cursor: pointer;
+        margin-left: 425px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+      }
+      .my-button:hover {
+        background: #009900;
+      }
+</style>
+
+
+
+
+<body>
+
+        <div style="text-align:center" class="">
+            <div>
+                <a class="fas fa-plus fa-3x" href="{% url 'dodaj' %}" style="text-decoration: none;margin-right;float: right;"></a>
+            </div>
+        <div class="">
+            <div class="table">
+                <div>
+                    <h4 style="text-align:center"> Today's Consumption</h4>
+                </div>
+
+                <table style="width:100%">
+                      <tr>
+    <th></th>
+                           <th></th>
+         <th class="" >fat</th>
+         <th>protein</th>
+         <th>carbs</th>
+         <th>total</th>
+                          <th> </th>
+  </tr>
+                    {% for c in object_list %}
+                     <!-- {% now "Y-m-d" as todays %}
+                    {% if todays == c.date_eaten|date:"c" %} -->
+
+  <tr> <td>{{ c.date_eaten }}</td>
+        <td>{{ c.category }}</td>
+      <td>{{ c.name }}</td>
+        <td style="text-align:center;" >{{c.fat}}g</td>
+        <td style="text-align:center;" >{{c.protein}}g</td>
+        <td style="text-align:center;" >{{c.carbs}}g</td>
+        <td style="text-align:center;" >{{c.total_calories}} kcal </td>
+      <td><a class="fas fa-pen fa-2x" href="" style="text-decoration: none;margin-right: ;"></a></td>
+      <td><a class="fas fa-trash-alt fa-2x" href="{% url 'produkty-delete' c.id %}" style="text-decoration: none;margin-right: ;"></a></td>
+  </tr>
+                   <!-- {% endif %} -->
+        {% endfor %}
+</table>
+
+
+
+            </div>
+        </div>
+</body>
+
+</html>
+{% endblock %}
+
+

@@ -1,0 +1,14 @@
+
+
+<div class="header-bar">
+    <a href="{% url 'calories' %}">&#8592; Go Back</a>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Na pewno chcesz usunąc  <b>"{{calorie.title}}?"</b> </p>
+        <input class="button" type="submit" value="Usuń" />
+    </form>
+</div>
+

@@ -1,0 +1,27 @@
+<div class="header-bar">
+    <a href="{% url 'calories' %}">&#8592; Go Back</a>
+</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <div>
+        <h4>Nazwa produktu:<a href="{% url 'calories' %}"> {{calorie.title}}</a>
+
+
+        <h4>opis produktu:<a href="{% url 'calories' %}"> {{calorie.description}}</a>
+
+        <h4>ilość kalorii:<a href="{% url 'calories' %}"> {{calorie.calorie}}</a>
+
+        <h5>data dodania:<a href="{% url 'calories' %}"> {{calorie.created}}</a>
+            <a href="{% url 'calorie-update' calorie.id %}">EDYTUJ</a></h4>
+
+
+        </h5>
+    </div>
+</head>
+<body>
+
+</body>
+</html>

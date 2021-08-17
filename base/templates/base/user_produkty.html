@@ -1,0 +1,20 @@
+
+{% extends 'base/main.html' %}
+{% block content %}
+<h1 class="mb-3" >Posty użytkownika {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+
+ {% for post in posts %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img"  src="">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_eaten }}</small>
+            </div>
+            <h2><a class="article-title" href="">{{ post.name }}</a></h2>
+            <p class="article-content"></p>
+          </div>
+        </article>
+    {% endfor %}
+
+{% endblock content %}

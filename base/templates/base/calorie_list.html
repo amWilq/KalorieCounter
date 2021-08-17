@@ -1,0 +1,61 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+
+
+
+<div class="header-bar">
+    <div>
+        <h1>Hello {{request.user|title}}</h1>
+    </div>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Wyloguj się</a>
+    {% else %}
+        <a href="{% url 'logowanie' %}">Zaloguj się</a>
+{% endif %}
+
+
+
+</div>
+<div class="task-items-wrapper" >
+
+    {% for calorie in object_list %}
+        <div class="task-wrapper" >
+                {% if "1500" in calorie.calorie %}
+                <div class="task-title" >
+                    <div class="fas fa-exclamation"></div>
+                        <i><a  href="">{{calorie.title}}</a></i>
+                {% else %}
+                    <div class="task-title">
+                    <div class="task-complete-icon"></div>
+
+
+
+                        <i><a href="">{{calorie.title}}</a></i>
+                        {% endif %}
+                </div>
+            <div>
+            <a class="fas fa-trash-alt" href="{% url 'calorie-delete' calorie.id %}" style="text-decoration: none;margin-right: 25px;"></a>
+                <td></td>
+            <a class="fas fa-pen" href="{% url 'calorie-update' calorie.id %}" style="text-decoration: none;margin-right: 25px;"></a>
+                </div>
+        <!--
+            <div class="task-title">
+                <div class="task-incomplete-icon"></div>
+                    <a href="">{{calorie.title}}</a>
+            </div>
+            <a class="delete-link" href="">&#215;</a>
+        -->
+
+        </div>
+    {% empty %}
+    <h3 style="text-align: center;">Brak zadań do zrobienia! dodaj pierwsze zadanie</h3>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+{% endblock %}

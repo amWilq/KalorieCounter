@@ -1,0 +1,14 @@
+
+
+<div class="header-bar">
+    <h1>Logowanie</h1>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Zaloguj się">
+    </form>
+    <p>Masz już konto? <a href="{% url 'register' %}">Zarejstruj się</a></p>
+</div>
