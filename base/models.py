@@ -15,7 +15,7 @@ class Jedzenie(models.Model):
         ('W', 'Woda')
     )
     category = models.CharField(choices=CATEGORIES, max_length=4, default="Sniadanie")
-
+    date = models.DateTimeField(auto_now=False)
     name = models.CharField(max_length=100, null=True)
     total_calories = models.IntegerField()
     fat = models.IntegerField()

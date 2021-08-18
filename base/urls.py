@@ -14,7 +14,6 @@ urlpatterns = [
     path('produkty/<int:pk>', ProduktView.as_view(), name='dodaj_view'),
     path('produkty', ProduktyView.as_view(), name='produkty_list'),
     path('produkty-delete/<int:pk>/', ProduktyDelete.as_view(), name='produkty-delete'),
-
     path('calorie/', CalorieList.as_view(), name='calories'),
     path('calorie/<int:pk>', CalorieDetail.as_view(), name='calorie'),
     path('calorie_create/', CalorieCreate.as_view(), name='calorie-create'),

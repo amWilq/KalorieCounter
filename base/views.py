@@ -19,16 +19,6 @@ class UserPostListView(ListView):
     context_object_name = 'posts'
     paginate_by = 5 #ilosc postów wyświetlanych na stornie
 
-    def get_queryset(self):
-
-
-        #date = Jedzenie.objects.get(date_eaten=)
-        #user = Jedzenie.objects.get(id=23)
-
-        user = Jedzenie.objects.all
-        #user = Jedzenie.objects.filter(name='2')
-
-        return Jedzenie.objects.filter(author=user).order_by('-date_eaten').first()
 
 
 
@@ -55,11 +45,16 @@ class ProduktView(DetailView):
 
 class ProduktyView(ListView):
     model = Jedzenie
-    #Jedzenie.objects.filter(date_eaten__gte=datetime.date(2011, 1, 1))
     queryset = Jedzenie.objects.all().order_by('-total_calories')
 
     #w html tego potem używamy
     template_name ='base/produkty_list.html'
+    def get_queryset(self):
+        import datetime
+        yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+        print(yesterday.strftime("%m%d%y"))
+        bookings = Jedzenie.objects.filter(date_eaten=yesterday)
+        return bookings
 
 
 class ProduktyDelete(LoginRequiredMixin, DeleteView):
