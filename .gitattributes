@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+idea/
+Kalorie_counter/
+Kalorie_counter/*TEST.txt
+*db.sqlite3

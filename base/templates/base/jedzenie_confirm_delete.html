@@ -1,7 +1,8 @@
-
+{% extends 'base/main.html' %}
+{% block content %}
 
 <div class="header-bar">
-    <a href="{% url 'calories' %}">&#8592; Go Back</a>
+    <a href="{% url 'produkty_list' %}">&#8592; Wróć</a>
 </div>
 
 <div class="card-body">
@@ -12,3 +13,4 @@
     </form>
 </div>
 
+{% endblock content %}

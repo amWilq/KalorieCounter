@@ -1,47 +1,43 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django import forms
+from datetime import timedelta
+import datetime
 
 
 class Jedzenie(models.Model):
-    CATEGORIES = (
-        ('S', 'Sniadanie'),
-        ('S_II', 'Sniadanie II'),
-        ('L', 'Lunch'),
-        ('O', 'Obiad'),
-        ('C', 'Przekąska'),
-        ('K', 'Kolacja'),
-        ('T', 'Trening'),
-        ('W', 'Woda')
-    )
+
+    Sniadanie = 'S'
+    Sniadanie_II = 'S_II'
+    Lunch = 'L'
+    Obiad = 'O'
+    Przekąska = 'P'
+    Kolacja = 'K'
+    Trening = 'T'
+    Woda = 'W '
+
+    CATEGORIES = [
+        (Sniadanie, 'Sniadanie'),
+        (Sniadanie_II, 'Sniadanie_II'),
+        (Lunch, 'Lunch'),
+        (Obiad, 'Obiad'),
+        (Przekąska, 'Przekąska'),
+        (Kolacja, 'Kolacja'),
+        (Trening, 'Trening'),
+        (Woda, 'Woda'),
+    ]
+
     category = models.CharField(choices=CATEGORIES, max_length=4, default="Sniadanie")
-    date = models.DateTimeField(auto_now=False)
+    date = models.DateTimeField(auto_now_add=False,default=datetime.datetime.now())
     name = models.CharField(max_length=100, null=True)
     total_calories = models.IntegerField()
     fat = models.IntegerField()
     protein = models.IntegerField()
     carbs = models.IntegerField()
-    #category = models.CharField(choices=CATEGORIES,max_length=4)
-    date_eaten = models.DateField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    date_eaten = models.DateField(auto_now_add=False, default=datetime.datetime.now())
+    author = models.ForeignKey(User, on_delete=models.CASCADE,default=User)
 
     def __str__(self):
         return f"{self.category}/// {self.date_eaten}"
 
-
-class Calorie(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-    calorie = models.CharField(max_length=200)
-    created = models.DateTimeField(auto_now_add=True)
-
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = [
-            'calorie'
-        ]
 
