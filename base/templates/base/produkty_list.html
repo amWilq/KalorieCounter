@@ -1,89 +1,61 @@
 
 {% extends 'base/main.html' %}
 {% block content %}
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
-
-
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <script src="https://kit.fontawesome.com/af012b12d8.js" crossorigin="anonymous"></script>
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
 
-
+    <!-- jquery 3.4.1-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
-<div class="header-bar">
-    <div>
-        <h1>Cześć {{request.user|title}}</h1>
-    </div>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}">Wyloguj się</a>
-    {% else %}
-        <a href="{% url 'logowanie' %}">Zaloguj się</a>
-    {% endif %}
-</div>
-    <!--<a id="add-link" href="{% url 'dodaj' %}">&#x2b;</a>
-    {% for produkty in object_list %}
-    <h2><a href="{% url 'dodaj_view' produkty.id %}">{{ produkty.date_eaten|date:"l" }}</a></h2>
-    https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#date
-    {% endfor %}
-    -->
-
-
 <style>
-
-#div2
-{
-  text-align: center;
+.container {
+    font-size: 24px;
+    width: 50%;
+    margin: auto;
+    background-color: #fff;
 }
 
-
-tr
-{
-border: 1px solid cyan;
-  display: flex;
-
-  justify-content: center;
+#div2{
+    text-align: center;
 }
 
-
-td
-{
-border: 1px solid blue;
-  height: 50px;
-  width: 100px;
-
+.horizontal-list {
+    list-style: none;
 }
 
-div
-{
-  border: 1px solid red;
+#myProgress {
+    position: relative;
+    width: 25%;
+    height: 30px;
+    background-color: #ddd;
+    }
+
+#myBar {
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    background-color: #4CAF50;
+    }
+
+#label {
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    }
+
+li{
+    display: inline;
+    color: #9A9A9A;
+    text-align: left;
+
 }
-
-.table
-{
-
-    border: 2px solid green;
-
-}
-
-
-.produkt-name
-{
-  width: 150px;
-}
-
-
-
 </style>
 
 
@@ -92,181 +64,246 @@ div
 <div id="div2" >
         <!-- ustawaianie dnia  -->
         <form  method="GET" >
-            <br>
                 <button type="submit" name="ustaw-dzien" value="1">Wczoraj</button>
                 <button type="submit" name="ustaw-dzien" value="0">Dziś</button>
                 <button type="submit" name="ustaw-dzien" value="-1">Jutro</button>
-            </br>
-
         </form>
         </div>
 
 
+ <!-- tabela produktów  -->
+<div class="container">
+<div>
+<div class="expand" style="background-color:#FDFDFD;">
 
-        <!-- tabela produktów  -->
-
-<div style="text-align: center;">
-
-                <table class="table" >
-                    <tr class="master" style="display: inline-block; text-align: right;">
-                        <th><a class="fas fa-ellipsis-v" href="" style="text-decoration: none;"></a></th>
-                        <th><a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a></th>
-                        <th>Śniadanie</th>
-                    </tr>
-
-        {% if object_list %}
-        {% for c in object_list %}
-        {% if c.category == 'S' %}
-
-                    <tr >
-                        <td class="produkt-name"> {{ c.name }}</td>
-                        <td>{{ c.fat}}g</td>
-                        <td>{{ c.protein}}g</td>
-                        <td>{{ c.carbs}}g</td>
-                        <td>{{ c.total_calories}} kcal </td>
-                    </tr>
-
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </table>
-
-
-                <table class="table" >
-                    <tr class="master" style="display: inline-block; text-align: left;">
-                        <th><a class="fas fa-ellipsis-v" href="" style="text-decoration: none;"></a></th>
-                        <th><a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
-                        <th style='text-align:center; vertical-align:middle'> Drugie Śniadanie </th>
-                    </tr>
-
-        {% if object_list %}
-        {% for c in object_list %}
-        {% if c.category == 'S_II' %}
-
-                    <tr>
-                        <td class="produkt-name"> {{ c.name }}</td>
-                        <td>{{ c.fat}}g</td>
-                        <td>{{ c.protein}}g</td>
-                        <td>{{ c.carbs}}g</td>
-                        <td>{{ c.total_calories}} kcal </td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </table>
-
-
-                <table class="table" >
-                    <tr class="master" align="right">
-                        <th><a class="fas fa-ellipsis-v" href="" style="text-decoration: none;"></a></th>
-                        <th><a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a></th>
-                        <th> Obiad </th>
-                    </tr>
-
-        {% if object_list %}
-        {% for c in object_list %}
-        {% if c.category == 'O' %}
-
-                    <tr>
-                        <td class="produkt-name"> {{ c.name }}</td>
-                        <td>{{ c.fat}}g</td>
-                        <td>{{ c.protein}}g</td>
-                        <td>{{ c.carbs}}g</td>
-                        <td>{{ c.total_calories}} kcal </td>
-                    </tr>
-
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </table>
-
-
-
-                <table class="table" >
-                    <tr class="master" align="right">
-                        <th><a class="fas fa-ellipsis-v" href="" style="text-decoration: none;"></a></th>
-                        <th><a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a></th>
-                        <th> Lunch  </th>
-                    </tr>
-
-        {% if object_list %}
-        {% for c in object_list %}
-        {% if c.category == 'L' %}
-
-                    <tr>
-                        <td class="produkt-name"> {{ c.name }}</td>
-                        <td>{{ c.fat}}g</td>
-                        <td>{{ c.protein}}g</td>
-                        <td>{{ c.carbs}}g</td>
-                        <td>{{ c.total_calories}} kcal </td>
-                    </tr>
-
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </table>
-
-                <table class="table" >
-                    <tr class="master" align="right">
-                        <th><a class="fas fa-ellipsis-v" href="" style="text-decoration: none;"></a></th>
-                        <th><a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a></th>
-                        <th> Przekąski  </th>
-                    </tr>
-
-        {% if object_list %}
-        {% for c in object_list %}
-        {% if c.category == 'P' %}
-
-                    <tr>
-                        <td class="produkt-name"> {{ c.name }}</td>
-                        <td>{{ c.fat}}g</td>
-                        <td>{{ c.protein}}g</td>
-                        <td>{{ c.carbs}}g</td>
-                        <td>{{ c.total_calories}} kcal </td>
-                    </tr>
-
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </table>
-
-
-
-                <table class="table" >
-                    <tr class="master" align="right">
-                        <th><a class="fas fa-ellipsis-v" href="" style="text-decoration: none;"></a></th>
-                        <th><a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a></th>
-                        <th> Kolacja  </th>
-                    </tr>
-
-        {% if object_list %}
-        {% for c in object_list %}
-        {% if c.category == 'K' %}
-
-                    <tr>
-                        <td class="produkt-name"> {{ c.name }}</td>
-                        <td>{{ c.fat}}g</td>
-                        <td>{{ c.protein}}g</td>
-                        <td>{{ c.carbs}}g</td>
-                        <td>{{ c.total_calories}} kcal </td>
-                    </tr>
-
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </table>
+    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a style="padding: 15px;">Śniadanie</a><br>
 
 </div>
 
+            {% if object_list %}
+            {% for c in object_list %}
+            {% if c.category == 'S' %}
+
+        <ul class="horizontal-list" style="background-color:#EEEEEE;">
+            <li> {{ c.name}}
+            <ul>
+                <li> {{ c.total_calories}}kcal</li>
+                <li> {{ c.fat}} g </li>
+                <li> {{ c.protein}} g  </li>
+                <li> {{ c.carbs}} g </li>
+            </ul>
+            </li>
+        </ul>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+</div>
+
+
+<div>
+<div class="expand" style="background-color:#FDFDFD;">
+
+    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a style="padding: 15px;">Drugie Śniadanie</a><br>
+
+</div>
+            {% if object_list %}
+            {% for c in object_list %}
+            {% if c.category == 'S_II' %}
+        <ul class="horizontal-list" style="background-color:#EEEEEE;">
+            <li> {{ c.name}}
+            <ul>
+                <li> {{ c.total_calories}}kcal</li>
+                <li> {{ c.fat}} g </li>
+                <li> {{ c.protein}} g  </li>
+                <li> {{ c.carbs}} g </li>
+            </ul>
+            </li>
+        </ul>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</div>
+
+<div>
+<div class="expand" style="background-color:#FDFDFD;">
+
+    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a style="padding: 15px;">Obiad</a>
+</div>
+
+            {% if object_list %}
+            {% for c in object_list %}
+            {% if c.category == 'O' %}
+        <ul class="horizontal-list" style="background-color:#EEEEEE;">
+            <li> {{ c.name}}
+            <ul>
+                <li> {{ c.total_calories}}kcal</li>
+                <li> {{ c.fat}} g </li>
+                <li> {{ c.protein}} g  </li>
+                <li> {{ c.carbs}} g </li>
+            </ul>
+            </li>
+        </ul>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</div>
+
+<div>
+<div class="expand" style="background-color:#FDFDFD;">
+
+    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a style="padding: 15px;">Lunch</a>
+</div>
+
+            {% if object_list %}
+            {% for c in object_list %}
+            {% if c.category == 'L' %}
+        <ul class="horizontal-list" style="background-color:#EEEEEE;">
+            <li> {{ c.name}}
+            <ul>
+                <li> {{ c.total_calories}}kcal</li>
+                <li> {{ c.fat}} g </li>
+                <li> {{ c.protein}} g  </li>
+                <li> {{ c.carbs}} g </li>
+            </ul>
+            </li>
+        </ul>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</div>
+
+<div>
+<div class="expand" style="background-color:#FDFDFD;">
+
+    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a style="padding: 15px;">Kolacja</a>
+</div>
+
+            {% if object_list %}
+            {% for c in object_list %}
+            {% if c.category == 'K' %}
+        <ul class="horizontal-list" style="background-color:#EEEEEE;">
+            <li> {{ c.name}}
+            <ul>
+                <li> {{ c.total_calories}}kcal</li>
+                <li> {{ c.fat}} g </li>
+                <li> {{ c.protein}} g  </li>
+                <li> {{ c.carbs}} g </li>
+            </ul>
+            </li>
+        </ul>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+</div>
+
+<div>
+<div class="expand" style="background-color:#FDFDFD;">
+
+    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a style="padding: 15px;">Przekąska</a>
+</div>
+
+            {% if object_list %}
+            {% for c in object_list %}
+            {% if c.category == 'P' %}
+        <ul class="horizontal-list" style="background-color:#EEEEEE;">
+            <li> {{ c.name}}
+            <ul>
+                <li> {{ c.total_calories}}kcal</li>
+                <li> {{ c.fat}} g </li>
+                <li> {{ c.protein}} g  </li>
+                <li> {{ c.carbs}} g </li>
+            </ul>
+            </li>
+        </ul>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+    </div>
+</div>
+
+
+
+<div class="container" style="text-align: center;">
+    <span id="todays_total_kcal" class="target"></span>kcal      <b></b>
+    <span id="todays_total_fat" class="target"></span>g(fat)    <b></b>
+    <span id="todays_total_protei" class="target"></span>g(protein)<b></b>
+    <span id="todays_total_carbs" class="target"></span>g(carbs)  <b></b>
+</div>
+
+<!--- WARTOSC USTAWIONA PRZEZ UZYTOWNIKA ILE MOZE ZJESC KALORI--->
+<li id="q10" value="2500"></li>
+
+<div id="myProgress">
+  <div id="myBar">%</div>
+</div>
+
+
+
 <!-- Latest compiled and minified JavaScript -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>
+<script class="progress_bar">
+function getInputValue(selector) {
+	var str = $(selector).val();
+  return parseInt(str, 10);
+}
+
+function updateProgress() {
+
+  var total = getInputValue('#q10');
+  var current = document.getElementById("todays_total_kcal").innerText;
+  var progress = (current / total) * 100;
+
+  //progress = progress.toFixed(2); //if you want to limit number of digits after decimal point
+
+  $("#myBar").css("width", progress + "%");
+  $("#label").text(progress + "%");
+}
+
+$(function() {
+	$(".postbtn").click(updateProgress);
+  updateProgress();//if you want to render outside of click handler, for example after page load.
+});
+</script>
+
+<script class="expand_data">
 $(document).ready(function () {
-    $('.master').nextUntil('tr.master').hide();
-    $('.master').click(function () {
-        $(this).nextUntil('tr.master').slideToggle(100, function () {});
+    $('.expand').nextUntil('div.expand').hide();
+    $('.expand').click(function () {
+        $(this).nextUntil('div.expand').slideToggle(100, function () {});
     });
+});
+</script>
+
+<script class="sum_data">
+const targets = $('.target');
+const sums = [...targets].map(_ => 0);
+$('li li').each(function() {
+  const i = $(this).index();
+  sums[i] += Number(this.textContent.match(/\d+/)[0]);
+});
+sums.forEach((sum, i) => {
+  targets[i].textContent = sum;
 });
 </script>
 

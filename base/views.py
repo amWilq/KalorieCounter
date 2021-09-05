@@ -1,4 +1,4 @@
-from .forms import ExampleForm
+
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.views.generic import FormView
@@ -7,22 +7,11 @@ from django.contrib.auth import login
 from django.views.generic import ListView, CreateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from datetime import date
-from django.shortcuts import  redirect
 from django.views import generic
 from django.views.generic import DetailView
 from .models import *
 from django.http import HttpResponse
-from django.http import Http404
-
-from django.utils.translation import ugettext as _
-
-
 from django.shortcuts import render, redirect
-from .forms import ExampleForm
-from datetime import timedelta
-
-from .forms import Homeform
-
 
 
 
@@ -66,6 +55,7 @@ class ProduktyView(LoginRequiredMixin,ListView):
     queryset = Jedzenie.objects.all().order_by('-total_calories')
 
     #w html tego potem używamy
+    context_object_name = 'produkty'
 
     template_name ='base/produkty_list.html'
 
