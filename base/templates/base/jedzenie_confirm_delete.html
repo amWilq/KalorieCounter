@@ -1,9 +1,7 @@
 {% extends 'base/main.html' %}
 {% block content %}
+<div class="container">
 
-<div class="header-bar">
-    <a href="{% url 'produkty_list' %}">&#8592; Wróć</a>
-</div>
 
 <div class="card-body">
     <form method="POST">
@@ -11,6 +9,7 @@
         <p>Na pewno chcesz usunąc  <b>"{{produkty.name}}?"</b> </p>
         <input class="button" type="submit" value="Usuń" />
     </form>
+</div>
 </div>
 
 {% endblock content %}

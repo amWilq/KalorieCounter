@@ -32,12 +32,14 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.55.107','192.168.55.1']
 INSTALLED_APPS = [
 
     'base.apps.BaseConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -114,13 +116,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+import os
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DATE_INPUT_FORMATS = ['%d-%m-%Y']

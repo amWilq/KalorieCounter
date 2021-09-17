@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-from datetime import timedelta
+from django.utils import timezone
 import datetime
 
 
@@ -27,17 +27,17 @@ class Jedzenie(models.Model):
         (Woda, 'Woda'),
     ]
 
-    category = models.CharField(choices=CATEGORIES, max_length=4, default="Sniadanie")
+    category = models.CharField(choices=CATEGORIES, max_length=4, verbose_name = "Kategoria")
     date = models.DateTimeField(auto_now_add=False,default=datetime.datetime.now())
-    name = models.CharField(max_length=100, null=True)
-    total_calories = models.IntegerField()
-    fat = models.IntegerField()
-    protein = models.IntegerField()
-    carbs = models.IntegerField()
-    date_eaten = models.DateField(auto_now_add=False, default=datetime.datetime.now())
-    author = models.ForeignKey(User, on_delete=models.CASCADE,default=User)
+    name = models.CharField(max_length=100, null=True, verbose_name = "Nazwa produktu")
+    total_calories = models.IntegerField(verbose_name = "Kalorie")
+    fat = models.IntegerField(verbose_name = "Tłuszcz")
+    protein = models.IntegerField(verbose_name = "Proteiny")
+    carbs = models.IntegerField(verbose_name = "Węglowodany")
+    date_eaten = models.DateField(default=timezone.now,verbose_name = "Data spożycia")
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
+
 
     def __str__(self):
         return f"{self.category}/// {self.date_eaten}"
-
 

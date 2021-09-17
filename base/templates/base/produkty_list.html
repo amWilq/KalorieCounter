@@ -15,9 +15,23 @@
 
 
 <style>
+.TEST {
+    width: auto;
+    min-height: 600px;
+    background-color: red;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
 .container {
     font-size: 24px;
     width: 50%;
+    min-height: 100px;
     margin: auto;
     background-color: #fff;
 }
@@ -30,20 +44,35 @@
     list-style: none;
 }
 
-#myProgress {
+.myProgress {
     position: relative;
-    width: 25%;
-    height: 30px;
+    height: 10px;
     background-color: #ddd;
+    text-align: center;
     }
 
-#myBar {
-    position: absolute;
+.myBar_kcal {
     width: 10%;
     height: 100%;
-    background-color: #4CAF50;
+    background-color: #80ff80;
     }
 
+.myBar_fat {
+    width: 10%;
+    height: 100%;
+    background-color: #99d6ff;
+    }
+.myBar_protein{
+    width: 10%;
+    height: 100%;
+    background-color: #ff4d4d;
+    }
+
+.myBar_carbs{
+    width: 10%;
+    height: 100%;
+    background-color: #d9b3ff;
+    }
 #label {
     text-align: center;
     line-height: 30px;
@@ -56,19 +85,53 @@ li{
     text-align: left;
 
 }
+
+.four {
+
+    padding: 5px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 24px;
+    width: 25%;
+    margin: auto;
+    background-color: #fff;
+}
+
+.target{
+    font-weight: bold;
+}
+
+.btn{
+    width: calc(100% / 3);
+    padding: 0;
+    border: none;
+    background: white;
+    border: 1px solid black;
+}
+.btn:hover {background-color: #e7e7e7;}
+
+.expand{
+width: 100% ;
+}
+
 </style>
 
 
-<body>
+
 
 <div id="div2" >
+
         <!-- ustawaianie dnia  -->
-        <form  method="GET" >
-                <button type="submit" name="ustaw-dzien" value="1">Wczoraj</button>
-                <button type="submit" name="ustaw-dzien" value="0">Dziś</button>
-                <button type="submit" name="ustaw-dzien" value="-1">Jutro</button>
-        </form>
+<form  method="GET" >
+
+<div class="btn-group" style="width:50%;">
+  <button class="btn" name="ustaw-dzien" value="1" type="submit">Wczoraj<br></button>
+  <button class="btn" name="ustaw-dzien" value="0" type="submit" style="width: calc(100% / 3);">Dzisiaj<br> {% now "l" %}</button>
+  <button class="btn" name="ustaw-dzien" value="-1" type="submit" style="width: calc(100% / 3);">Jutro<br></button>
+</div>
+</form>
         </div>
+
 
 
  <!-- tabela produktów  -->
@@ -76,8 +139,7 @@ li{
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
-    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
-    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="color:black"></a>
     <a style="padding: 15px;">Śniadanie</a><br>
 
 </div>
@@ -87,7 +149,10 @@ li{
             {% if c.category == 'S' %}
 
         <ul class="horizontal-list" style="background-color:#EEEEEE;">
-            <li> {{ c.name}}
+            <li>
+                 <a class="fas fa-ellipsis-v" href="{% url 'produkty-edit' c.id %}" style="color:black;padding: 15px;"></a>
+                 <a class="fas fa-times" style="color:black" href="{% url 'produkty-delete' c.id %}"></a>
+                {{ c.name}}
             <ul>
                 <li> {{ c.total_calories}}kcal</li>
                 <li> {{ c.fat}} g </li>
@@ -106,8 +171,7 @@ li{
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
-    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
-    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="color:black"></a>
     <a style="padding: 15px;">Drugie Śniadanie</a><br>
 
 </div>
@@ -115,7 +179,10 @@ li{
             {% for c in object_list %}
             {% if c.category == 'S_II' %}
         <ul class="horizontal-list" style="background-color:#EEEEEE;">
-            <li> {{ c.name}}
+            <li>
+                 <a class="fas fa-ellipsis-v" href="{% url 'produkty-edit' c.id %}" style="color:black;padding: 15px;"></a>
+                 <a class="fas fa-times" style="color:black" href="{% url 'produkty-delete' c.id %}"></a>
+                {{ c.name}}
             <ul>
                 <li> {{ c.total_calories}}kcal</li>
                 <li> {{ c.fat}} g </li>
@@ -134,8 +201,7 @@ li{
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
-    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
-    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="color:black"></a>
     <a style="padding: 15px;">Obiad</a>
 </div>
 
@@ -143,7 +209,10 @@ li{
             {% for c in object_list %}
             {% if c.category == 'O' %}
         <ul class="horizontal-list" style="background-color:#EEEEEE;">
-            <li> {{ c.name}}
+            <li>
+                 <a class="fas fa-ellipsis-v" href="{% url 'produkty-edit' c.id %}" style="color:black;padding: 15px;"></a>
+                 <a class="fas fa-times" style="color:black" href="{% url 'produkty-delete' c.id %}"></a>
+                {{ c.name}}
             <ul>
                 <li> {{ c.total_calories}}kcal</li>
                 <li> {{ c.fat}} g </li>
@@ -162,8 +231,7 @@ li{
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
-    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
-    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="color:black"></a>
     <a style="padding: 15px;">Lunch</a>
 </div>
 
@@ -171,7 +239,9 @@ li{
             {% for c in object_list %}
             {% if c.category == 'L' %}
         <ul class="horizontal-list" style="background-color:#EEEEEE;">
-            <li> {{ c.name}}
+            <li>
+                 <a class="fas fa-ellipsis-v" href="{% url 'produkty-edit' c.id %}" style="color:black;padding: 15px;"></a>
+                 <a class="fas fa-times" style="color:black" href="{% url 'produkty-delete' c.id %}"></a>                {{ c.name}}
             <ul>
                 <li> {{ c.total_calories}}kcal</li>
                 <li> {{ c.fat}} g </li>
@@ -190,8 +260,7 @@ li{
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
-    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
-    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="color:black"></a>
     <a style="padding: 15px;">Kolacja</a>
 </div>
 
@@ -199,7 +268,10 @@ li{
             {% for c in object_list %}
             {% if c.category == 'K' %}
         <ul class="horizontal-list" style="background-color:#EEEEEE;">
-            <li> {{ c.name}}
+            <li>
+                 <a class="fas fa-ellipsis-v" href="{% url 'produkty-edit' c.id %}" style="color:black;padding: 15px;"></a>
+                 <a class="fas fa-times" style="color:black" href="{% url 'produkty-delete' c.id %}"></a>
+                {{ c.name}}
             <ul>
                 <li> {{ c.total_calories}}kcal</li>
                 <li> {{ c.fat}} g </li>
@@ -217,8 +289,7 @@ li{
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
-    <a class="fas fa-ellipsis-v" href="" style="text-decoration: none;padding: 15px;"></a>
-    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="text-decoration: none;"></a>
+    <a class="fas fa-plus-circle fa-1x" href="{% url 'dodaj' %}" style="color:black"></a>
     <a style="padding: 15px;">Przekąska</a>
 </div>
 
@@ -226,7 +297,10 @@ li{
             {% for c in object_list %}
             {% if c.category == 'P' %}
         <ul class="horizontal-list" style="background-color:#EEEEEE;">
-            <li> {{ c.name}}
+            <li>
+                 <a class="fas fa-ellipsis-v" href="{% url 'produkty-edit' c.id %}" style="color:black;padding: 15px;"></a>
+                 <a class="fas fa-times" style="color:black" href="{% url 'produkty-delete' c.id %}"></a>
+                {{ c.name}}
             <ul>
                 <li> {{ c.total_calories}}kcal</li>
                 <li> {{ c.fat}} g </li>
@@ -242,23 +316,47 @@ li{
     </div>
 </div>
 
-
-
-<div class="container" style="text-align: center;">
-    <span id="todays_total_kcal" class="target"></span>kcal      <b></b>
-    <span id="todays_total_fat" class="target"></span>g(fat)    <b></b>
-    <span id="todays_total_protei" class="target"></span>g(protein)<b></b>
-    <span id="todays_total_carbs" class="target"></span>g(carbs)  <b></b>
-</div>
-
 <!--- WARTOSC USTAWIONA PRZEZ UZYTOWNIKA ILE MOZE ZJESC KALORI--->
-<li id="q10" value="2500"></li>
+<li id="user_kcal" value="{{ user.profile.goal_total_calories }}"></li>
+<li id="user_fat" value="{{ user.profile.goal_fat }}"></li>
+<li id="user_protein" value="{{ user.profile.goal_protein }}"></li>
+<li id="user_carbs" value="{{ user.profile.goal_carbs }}"></li>
+<!---------------------------------------------------------------->
 
-<div id="myProgress">
-  <div id="myBar">%</div>
+
+<!--- PROGRESS BARY--->
+<div class="container">
+    <div class="four">
+    <div class="myProgress">
+            <div class="myBar_kcal"></div>
+                <a>Kalorie</a>
+                <a><span id="todays_total_kcal" class="target"></span><b></b></a> <br>
+                <a>{{ user.profile.goal_total_calories }} kcal</a>
+            </div>
+    </div><div class="four">
+    <div class="myProgress">
+            <div class="myBar_fat"></div>
+                <a>Białka</a>
+                <a><span id="todays_total_fat" class="target"></span><b></b></a> <br>
+                <a>{{ user.profile.goal_fat }} g</a>
+            </div>
+    </div><div class="four">
+    <div class="myProgress">
+            <div class="myBar_protein"></div>
+                <a>Tłuszcze</a>
+                <a><span id="todays_total_protei" class="target"></span><b></b></a> <br>
+                <a>{{ user.profile.goal_protein }} g</a>
+            </div>
+    </div><div class="four">
+    <div class="myProgress">
+            <div class="myBar_carbs"></div>
+                <a>Węglow.</a>
+                <a><span id="todays_total_carbs" class="target"></span><b></b></a> <br>
+                <a>{{ user.profile.goal_carbs }} g</a>
+            </div>
+    </div>
 </div>
-
-
+<!---/PROGRESS BARY--->
 
 <!-- Latest compiled and minified JavaScript -->
 
@@ -270,14 +368,28 @@ function getInputValue(selector) {
 
 function updateProgress() {
 
-  var total = getInputValue('#q10');
-  var current = document.getElementById("todays_total_kcal").innerText;
-  var progress = (current / total) * 100;
+  var total_kcal = getInputValue('#user_kcal');
+  var total_fat = getInputValue('#user_fat');
+  var total_protein = getInputValue('#user_protein');
+  var total_carbs = getInputValue('#user_carbs');
 
-  //progress = progress.toFixed(2); //if you want to limit number of digits after decimal point
+  var current_kcal = document.getElementById("todays_total_kcal").innerText;
+  var current_fat = document.getElementById("todays_total_fat").innerText;
+  var current_protein = document.getElementById("todays_total_protei").innerText;
+  var current_carbs = document.getElementById("todays_total_carbs").innerText;
 
-  $("#myBar").css("width", progress + "%");
-  $("#label").text(progress + "%");
+  var progress_kcal  = (current_kcal / total_kcal) * 100;
+  var progress_fat  = (current_fat / total_fat) * 100;
+  var progress_protein  = (current_protein / total_protein) * 100;
+  var progress_carbs  = (current_carbs / total_carbs) * 100;
+
+  $(".myBar_carbs").css("width", progress_carbs + "%");
+  $(".myBar_protein").css("width", progress_protein + "%");
+  $(".myBar_kcal").css("width", progress_kcal  + "%");
+  $(".myBar_fat").css("width", progress_fat  + "%");
+
+  $("#label").text(progress_kcal  + "%");
+
 }
 
 $(function() {
@@ -307,7 +419,13 @@ sums.forEach((sum, i) => {
 });
 </script>
 
+<script class="button_adding">
+ var i = 0; function buttonClick() {
+     document.getElementById('add').value = i++; }
+
+</script>
 </body>
+
 {% endblock %}
 
 

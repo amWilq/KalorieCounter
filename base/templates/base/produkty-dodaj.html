@@ -1,23 +1,15 @@
-
 {% extends 'base/main.html' %}
 {% block content %}
+{% load crispy_forms_tags %}
 
-
-
-<div class="header-bar">
-    <a href="{% url 'produkty_list' %}">&#8592; Wróć</a>
-</div>
-
-
-
-
-<div class="card-body">
-        <form method="POST" action="">
-            {% csrf_token %}
-            <h1  >{{form.as_p}}</h1>
-        <input class="button" type="submit" value="Zapisz">
-
+<div class="container">
+    <div class="form-group"></div>
+    <form method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-secondary" > Zapisz </button>
     </form>
+</div>
 </div>
 
 {% endblock %}

@@ -1,8 +1,6 @@
 {% extends 'base/main.html' %}
 {% block content %}
-
-
-
+<div class="container">
 <div class="header-bar">
     <h1>Logowanie</h1>
 </div>
@@ -14,5 +12,6 @@
         <input class="button" type="submit" value="Zaloguj się">
     </form>
     <p>Masz już konto? <a href="{% url 'register' %}">Zarejstruj się</a></p>
+</div>
 </div>
 {% endblock %}

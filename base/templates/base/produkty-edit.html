@@ -1,23 +1,11 @@
 {% extends 'base/main.html' %}
 {% block content %}
-<html lang="en">
-<head>
-<div class="header-bar">
-    <a href="{% url 'produkty_list' %}">&#8592; Wróć</a>
-</div>
+<div class="container">
     <div class="form-group"></div>
     <form method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-secondary" > wyslij</button>
-
+        <button class="btn btn-secondary" > Zapisz </button>
     </form>
-
-
-</head>
-<body>
-
-</body>
-</html>
-
+</div>
 {% endblock content %}
