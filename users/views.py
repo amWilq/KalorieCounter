@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from  django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, GoalUpdateForm, UserGoalUpdateForm
 
 # Create your views here.
 def register(request):
@@ -29,7 +29,6 @@ def profile (requset):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(requset, f'Twoje konto zostało edytowane!')
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=requset.user)  # Wypełnia pole aktualnymi danymi
@@ -39,3 +38,18 @@ def profile (requset):
         'p_form':p_form
     }
     return render(requset, 'users/profile.html', context)
+
+
+@login_required
+def cele (requset):
+    if requset.method == 'POST':
+        p_form = GoalUpdateForm(requset.POST,requset.FILES,instance=requset.user.profile)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('home')
+    else:
+        p_form = GoalUpdateForm(instance=requset.user.profile)
+    context = {
+        'p_form':p_form
+    }
+    return render(requset, 'users/cele.html', context)

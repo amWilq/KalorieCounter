@@ -1,8 +1,12 @@
 {% extends 'base/main.html' %}
 {% block content %}
 <div class="container">
+    <div class="header-bar">
+            <span style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+            <a href="{% url 'produkty_list' %}">&#8592; Wróć</a>
+        </div>
     <div class="form-group"></div>
-    <form method="POST" enctype="multipart/form-data" >
+    <form class="Form_class" method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-secondary" > Zapisz </button>

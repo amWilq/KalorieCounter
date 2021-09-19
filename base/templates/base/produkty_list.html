@@ -7,42 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
 
     <!-- jquery 3.4.1-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 <style>
-.TEST {
-    width: auto;
-    min-height: 600px;
-    background-color: red;
 
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-}
-.container {
-    font-size: 24px;
-    width: 50%;
-    min-height: 100px;
-    margin: auto;
-    background-color: #fff;
-}
 
 #div2{
     text-align: center;
 }
 
-.horizontal-list {
-    list-style: none;
-}
 
 .myProgress {
     position: relative;
@@ -53,35 +30,35 @@
 
 .myBar_kcal {
     width: 10%;
+    max-width: 100%;
     height: 100%;
     background-color: #80ff80;
     }
 
 .myBar_fat {
     width: 10%;
+    max-width: 100%;
     height: 100%;
     background-color: #99d6ff;
     }
 .myBar_protein{
     width: 10%;
+    max-width: 100%;
     height: 100%;
     background-color: #ff4d4d;
     }
 
 .myBar_carbs{
     width: 10%;
+    max-width: 100%;
     height: 100%;
     background-color: #d9b3ff;
     }
-#label {
-    text-align: center;
-    line-height: 30px;
-    color: white;
-    }
+
 
 li{
     display: inline;
-    color: #9A9A9A;
+
     text-align: left;
 
 }
@@ -91,10 +68,9 @@ li{
     padding: 5px;
     display: inline-block;
     vertical-align: top;
-    font-size: 24px;
+    font-size: 15px;
     width: 25%;
     margin: auto;
-    background-color: #fff;
 }
 
 .target{
@@ -117,25 +93,25 @@ width: 100% ;
 </style>
 
 
+<body>
 
 
-<div id="div2" >
-
-        <!-- ustawaianie dnia  -->
-<form  method="GET" >
-
-<div class="btn-group" style="width:50%;">
-  <button class="btn" name="ustaw-dzien" value="1" type="submit">Wczoraj<br></button>
-  <button class="btn" name="ustaw-dzien" value="0" type="submit" style="width: calc(100% / 3);">Dzisiaj<br> {% now "l" %}</button>
-  <button class="btn" name="ustaw-dzien" value="-1" type="submit" style="width: calc(100% / 3);">Jutro<br></button>
-</div>
-</form>
-        </div>
-
-
-
- <!-- tabela produktów  -->
 <div class="container">
+    <div class="header-bar">
+        <span style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+    </div>
+<!-- ustawaianie dnia  -->
+<div id="div2" >
+<form  method="GET" >
+    <div class="btn-group" style="width:100%;">
+          <button class="btn" name="ustaw-dzien" value="1" type="submit">Wczoraj<br></button>
+          <button class="btn" name="ustaw-dzien" value="0" type="submit" style="width: calc(100% / 3);">Dzisiaj<br> {% now "l" %}</button>
+          <button class="btn" name="ustaw-dzien" value="-1" type="submit" style="width: calc(100% / 3);">Jutro<br></button>
+   </div>
+</form>
+</div>
+<!-- /ustawaianie dnia  -->
+<!-- tabela produktów  -->
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
@@ -166,8 +142,6 @@ width: 100% ;
 {% endfor %}
 {% endif %}
 </div>
-
-
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
@@ -197,7 +171,6 @@ width: 100% ;
 {% endif %}
 
 </div>
-
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
@@ -227,7 +200,6 @@ width: 100% ;
 {% endif %}
 
 </div>
-
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
@@ -256,7 +228,6 @@ width: 100% ;
 {% endif %}
 
 </div>
-
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
@@ -285,7 +256,6 @@ width: 100% ;
 {% endfor %}
 {% endif %}
 </div>
-
 <div>
 <div class="expand" style="background-color:#FDFDFD;">
 
@@ -314,9 +284,8 @@ width: 100% ;
 {% endfor %}
 {% endif %}
     </div>
-</div>
 
-<!--- WARTOSC USTAWIONA PRZEZ UZYTOWNIKA ILE MOZE ZJESC KALORI--->
+
 <li id="user_kcal" value="{{ user.profile.goal_total_calories }}"></li>
 <li id="user_fat" value="{{ user.profile.goal_fat }}"></li>
 <li id="user_protein" value="{{ user.profile.goal_protein }}"></li>
@@ -325,7 +294,7 @@ width: 100% ;
 
 
 <!--- PROGRESS BARY--->
-<div class="container">
+<div class="">
     <div class="four">
     <div class="myProgress">
             <div class="myBar_kcal"></div>
@@ -339,6 +308,7 @@ width: 100% ;
                 <a>Białka</a>
                 <a><span id="todays_total_fat" class="target"></span><b></b></a> <br>
                 <a>{{ user.profile.goal_fat }} g</a>
+
             </div>
     </div><div class="four">
     <div class="myProgress">
@@ -355,6 +325,21 @@ width: 100% ;
                 <a>{{ user.profile.goal_carbs }} g</a>
             </div>
     </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- /tabela produktów  -->
+<!--- WARTOSC USTAWIONA PRZEZ UZYTOWNIKA ILE MOZE ZJESC KALORI--->
 </div>
 <!---/PROGRESS BARY--->
 

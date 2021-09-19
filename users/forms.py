@@ -21,4 +21,16 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image','goal_fat']
+        fields = ['image']
+
+class UserGoalUpdateForm(forms.ModelForm):
+
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class GoalUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['goal_fat', 'goal_protein', 'goal_carbs', 'goal_total_calories']
